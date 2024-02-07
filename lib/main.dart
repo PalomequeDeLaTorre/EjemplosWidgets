@@ -22,7 +22,7 @@ class ExampleApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Aplicación de Ejemplo'),
+        title: Text('Aplicación de Ejemplos Widgets'),
       ),
       body: Center(
         child: Column(
