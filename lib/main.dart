@@ -24,27 +24,34 @@ class ExampleApp extends StatelessWidget {
       appBar: AppBar(
         title: Text('Aplicación de Ejemplos Widgets'),
       ),
-      body: Center(
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            SizedBox(height: 20),
             TextWidget(), // Básico: Muestra un texto de ejemplo
+            SizedBox(height: 20),
             ImageWidget(), // Básico: Muestra una imagen de ejemplo
+            SizedBox(height: 20),
             RaisedButtonWidget(), // Básico: Muestra un botón elevado
             SizedBox(height: 20),
             ContainerWidget(), // Diseño: Muestra un contenedor rectangular de color verde
+            SizedBox(height: 20),
             RowWidget(), // Diseño: Muestra una fila de íconos
             SizedBox(height: 20),
             CustomTextWidget(), // Básico: Muestra un texto personalizado
+            SizedBox(height: 20),
             CustomButtonWidget(), // Básico: Muestra un botón personalizado
+            SizedBox(height: 20),
             CustomIconWidget(), // Básico: Muestra un ícono personalizado
             SizedBox(height: 20),
             CardWidget(), // Diseño: Muestra un texto dentro de una tarjeta
+            SizedBox(height: 20),
             CustomContainerWidget(), // Diseño: Muestra un contenedor personalizado
+            SizedBox(height: 20),
             ListTileWidget(), // Diseño: Muestra un título, subtítulo y un ícono
-            Expanded(
-              child: SizedBox(),
-            ),
+            SizedBox(height: 20),
           ],
         ),
       ),
@@ -58,6 +65,7 @@ class TextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       'Este es un texto de ejemplo', // Texto de ejemplo
+      textAlign: TextAlign.center,
       style: TextStyle(fontSize: 20),
     );
   }
@@ -67,7 +75,7 @@ class ImageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      'flutter/assets/Example.png', // Ruta de la imagen de ejemplo
+      'assets/example.png', // Ruta de la imagen de ejemplo
       width: 200,
       height: 200,
     );
@@ -117,7 +125,11 @@ class RowWidget extends StatelessWidget {
 class CustomTextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text('Texto personalizado'); // Texto para identificar el widget
+    return Text(
+      'Texto personalizado',
+      textAlign: TextAlign.center,
+      style: TextStyle(fontSize: 20),
+    ); // Texto para identificar el widget
   }
 }
 
