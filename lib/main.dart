@@ -1,149 +1,188 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Aplicación de Ejemplos Widgets',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const Login(title: 'Login App'),
+      home: ExampleApp(),
     );
   }
 }
 
-class Login extends StatefulWidget {
-  const Login({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<Login> createState() => _LoginState();
-}
-
-class _LoginState extends State<Login> {
-  final _formKey = GlobalKey<FormState>();
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-
+class ExampleApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('Aplicación de Ejemplo'),
       ),
-      body: Form(
-        key: _formKey,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                child: TextFormField(
-                  controller: emailController,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(), labelText: "Email"),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-                child: TextFormField(
-                  controller: passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                      border: OutlineInputBorder(), labelText: "Password"),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    }
-                    return null;
-                  },
-                ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8, vertical: 16.0),
-                child: Center(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        if (emailController.text == "arun@gogosoon.com" &&
-                            passwordController.text == "qazxswedcvfr") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => HomePage(
-                                email: emailController.text,
-                              ),
-                            ),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Invalid Credentials'),
-                            ),
-                          );
-                        }
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Please fill input')),
-                        );
-                      }
-                    },
-                    child: const Text('Submit'),
-                  ),
-                ),
-              ),
-            ],
-          ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            TextWidget(), // Básico: Muestra un texto de ejemplo
+            ImageWidget(), // Básico: Muestra una imagen de ejemplo
+            RaisedButtonWidget(), // Básico: Muestra un botón elevado
+            SizedBox(height: 20),
+            ContainerWidget(), // Diseño: Muestra un contenedor rectangular de color verde
+            RowWidget(), // Diseño: Muestra una fila de íconos
+            SizedBox(height: 20),
+            CustomTextWidget(), // Básico: Muestra un texto personalizado
+            CustomButtonWidget(), // Básico: Muestra un botón personalizado
+            CustomIconWidget(), // Básico: Muestra un ícono personalizado
+            SizedBox(height: 20),
+            CardWidget(), // Diseño: Muestra un texto dentro de una tarjeta
+            CustomContainerWidget(), // Diseño: Muestra un contenedor personalizado
+            ListTileWidget(), // Diseño: Muestra un título, subtítulo y un ícono
+            Expanded(
+              child: SizedBox(),
+            ),
+          ],
         ),
       ),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key, required this.email});
-
-  final String email;
-
+// Widgets básicos
+class TextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Page'),
-      ),
-      body: Column(
-        children: [
-          Text(email),
-          Center(
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text("Go back!"),
-            ),
-          ),
-        ],
+    return Text(
+      'Este es un texto de ejemplo', // Texto de ejemplo
+      style: TextStyle(fontSize: 20),
+    );
+  }
+}
+
+class ImageWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Image.asset(
+      'flutter/assets/Example.png', // Ruta de la imagen de ejemplo
+      width: 200,
+      height: 200,
+    );
+  }
+}
+
+class RaisedButtonWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {},
+      child: Text('Presionar'), // Texto del botón
+    );
+  }
+}
+
+// Widgets de diseño
+class ContainerWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 100,
+      height: 100,
+      color: Colors.green, // Color del contenedor
+      child: Center(
+        child: Text('Contenedor'), // Texto para identificar el widget
       ),
     );
   }
 }
 
+class RowWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Icon(Icons.favorite),
+        Icon(Icons.thumb_up),
+        Icon(Icons.thumb_down),
+      ],
+    );
+  }
+}
+
+// Widgets básicos personalizados
+class CustomTextWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text('Texto personalizado'); // Texto para identificar el widget
+  }
+}
+
+class CustomButtonWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () {},
+      child: Text('Botón personalizado'), // Texto del botón
+    );
+  }
+}
+
+class CustomIconWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.star),
+      onPressed: () {},
+      tooltip: 'Ícono personalizado', // Descripción emergente
+    );
+  }
+}
+
+// Widgets de diseño personalizados
+class CardWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text('Tarjeta'), // Texto dentro de la tarjeta
+      ),
+    );
+  }
+}
+
+class CustomContainerWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: 100,
+      height: 100,
+      decoration: BoxDecoration(
+        color: Colors.blue, // Color del contenedor
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Center(
+        child: Text(
+          'Contenedor personalizado', // Texto dentro del contenedor
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+    );
+  }
+}
+
+class ListTileWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(Icons.mail),
+      title: Text('Título'), // Título
+      subtitle: Text('Subtítulo'), // Subtítulo
+      trailing: Icon(Icons.arrow_forward), // Ícono al final
+    );
+  }
+}
